@@ -1,4 +1,4 @@
-# 定义要移除的应用列表，这里包含 SecHealthUI（Windows 安全中心应用）
+﻿# 定义要移除的应用列表，这里包含 SecHealthUI（Windows 安全中心应用）
 $remove_appx = @("SecHealthUI"); 
 
 # 获取在线的预配置应用包信息

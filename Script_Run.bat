@@ -1,6 +1,9 @@
-@set defenderremoverver=13.0
+﻿@set defenderremoverver=13.0
 @setlocal DisableDelayedExpansion
 @echo off
+
+:: 设置代码页为 UTF-8，解决中文显示问题
+chcp 65001 >nul 2>&1
 
 :: 检查当前是否具有管理员权限
 net session >nul 2>&1

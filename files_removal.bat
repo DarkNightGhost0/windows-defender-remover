@@ -1,4 +1,7 @@
-@echo off
+﻿@echo off
+:: 设置代码页为 UTF-8，解决中文显示问题
+chcp 65001 >nul 2>&1
+
 :: 显示等待提示信息
 Echo Please wait...
 Echo 请稍候...
