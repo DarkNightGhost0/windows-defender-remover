@@ -1,5 +1,9 @@
 Windows Registry Editor Version 5.00
 
+; 移除 Windows 网络威胁防护（Web Threat Defense）组件
+; 此注册表文件用于禁用和移除 Windows 的网络威胁防护功能
+
+; 删除网络威胁防护的 COM 类标识符注册项（64 位和 32 位兼容层）
 [-HKEY_CLASSES_ROOT\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}]
 
 [-HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}]
@@ -8,61 +12,88 @@ Windows Registry Editor Version 5.00
 
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}]
 
+; 删除网络威胁防护相关的 Windows Runtime 可激活类
+; 用户会话服务管理器
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.Service.UserSessionServiceManager]
 
+; 威胁体验管理器
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.ThreatExperienceManager.ThreatExperienceManager]
 
+; 威胁响应引擎 - 威胁决策引擎
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.ThreatResponseEngine.ThreatDecisionEngine]
 
+; 网络威胁防御用户配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.Configuration.WTDUserSettings]
 
+; 禁用网络威胁防御的审计模式（设置为 0 = 禁用）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\AuditMode]
 "value"=dword:00000000
 
+; 禁用不安全或重复使用密码的通知（设置为 0 = 禁用）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\NotifyUnsafeOrReusedPassword]
 "value"=dword:00000000
 
+; 禁用网络威胁防御服务（设置为 0 = 禁用）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\ServiceEnabled]
 "value"=dword:00000000
 
+; 删除网络威胁防御系统服务（主服务）
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\webthreatdefsvc]
 
+; 删除网络威胁防御用户服务
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc]
 
+; 删除网络威胁防御的 Svchost 服务组配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost\WebThreatDefense]
 
+; 从 Svchost 服务列表中移除 WebThreatDefense 条目
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost]
 "WebThreatDefense"=-
 
+; 从防火墙策略中移除网络威胁防御服务的静态规则
+; 删除入站允许规则
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System]
 "WebThreatDefSvc_Allow_In"=-
+; 删除出站允许规则
 "WebThreatDefSvc_Allow_Out"=-
+; 删除入站阻止规则
 "WebThreatDefSvc_Block_In"=-
+; 删除出站阻止规则
 "WebThreatDefSvc_Block_Out"=-
 
+; 从防火墙策略中移除网络威胁防御服务的可配置规则
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Configurable\System]
 "{2A5FE97D-01A4-4A9C-8241-BB3755B65EE0}"=-
 "72e33e44-dc4c-40c5-a688-a77b6e988c69"=-
 "b23879b5-1ef3-45b7-8933-554a4303d2f3"=-
 
+; 再次确保从 Svchost 服务列表中移除 WebThreatDefense 条目
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost]
 "WebThreatDefense"=-
 
+; 删除网络威胁防御的策略管理器配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense]
 
+; 再次设置网络威胁防御策略为禁用状态（确保生效）
+; 审计模式禁用
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\AuditMode]
 "value"=dword:00000000
 
+; 密码重用通知禁用
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\NotifyUnsafeOrReusedPassword]
 "value"=dword:00000000
 
+; 服务启用状态禁用
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WebThreatDefense\ServiceEnabled]
 "value"=dword:00000000
 
+; 删除组策略中的 Windows 威胁防御服务（WTDS）配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WTDS]
 
+; 禁用密码重用通知组件
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WTDS\Components]
 "NotifyPasswordReuse"=dword:00000000
 
+; 禁用恶意软件通知组件
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WTDS\Components]
 "NotifyMalicious"=dword:00000000

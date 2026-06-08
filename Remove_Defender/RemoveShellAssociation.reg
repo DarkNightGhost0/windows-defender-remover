@@ -1,30 +1,49 @@
 Windows Registry Editor Version 5.00
 
+; 移除 Windows Defender 的 Shell 关联和相关组件
+; 此文件用于删除与 Windows Defender 相关的文件关联、应用标识和服务配置
+
+; 删除 Windows Defender 核心服务（WinDefend）的注册项
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinDefend]
 
+; 删除当前用户的 windowsdefender URL 协议关联
 [-HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\windowsdefender]
 
+; 删除 Windows Defender 的应用用户模型 ID（AppUserModelId）注册项
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppUserModelId\Windows.Defender]
 
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppUserModelId\Microsoft.Windows.Defender]
 
+; 删除 Windows Defender UWP 应用的包标识符关联
 [-HKEY_CLASSES_ROOT\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0]
 
+; 删除当前用户的 ms-cxh 协议关联（Microsoft Cloud Experience Host）
 [-HKEY_CURRENT_USER\Software\Classes\ms-cxh]
 
+; 删除应用资源缓存条目（AppRep.ChxApp - 应用程序声誉检查应用）
 [-HKEY_CLASSES_ROOT\Local Settings\MrtCache\C:%5CWindows%5CSystemApps%5CMicrosoft.Windows.AppRep.ChxApp_cw5n1h2txyewy%5Cresources.pri]
 
+; 删除当前用户类中的 WindowsDefender 协议处理程序
 [-HKEY_CLASSES_ROOT\WindowsDefender]
 
+; 删除当前用户的 AppX 包关联
 [-HKEY_CURRENT_USER\Software\Classes\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0]
 
+; 删除本地机器类中的 WindowsDefender 协议处理程序
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\WindowsDefender]
 
+; 从 Ubpm（统一后台策略管理器）中移除 Defender 维护任务
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Ubpm]
+; 删除 Defender 清理维护任务
 "CriticalMaintenance_DefenderCleanup"=-
+; 删除 Defender 验证维护任务
 "CriticalMaintenance_DefenderVerification"=-
 
+; 从防火墙策略中移除 Windows Defender 的静态规则
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System]
+; 删除 Windows Defender 防火墙规则 1
 "WindowsDefender-1"=-
+; 删除 Windows Defender 防火墙规则 2
 "WindowsDefender-2"=-
+; 删除 Windows Defender 防火墙规则 3
 "WindowsDefender-3"=-

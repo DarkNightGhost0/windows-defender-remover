@@ -1,48 +1,131 @@
 Windows Registry Editor Version 5.00
 
+; 禁用防病毒保护
 ; disabling Antivirus
 
+; ============================================
+; Windows Defender 主策略配置
+; ============================================
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender]
+; 禁用常规自动操作（设置为 1 = 不自动采取防病毒行动）
 "DisableRoutinelyTakingAction"=dword:00000001
+; 禁用服务保持活动状态（设置为 0 = 不允许防病毒服务持续运行）
 "ServiceKeepAlive"=dword:00000000
+; 禁用快速服务启动（设置为 0 = 不使用快速启动模式）
 "AllowFastServiceStartup"=dword:00000000
+; 禁用本地管理员策略合并（设置为 1 = 不合并本地管理员的策略设置）
 "DisableLocalAdminMerge"=dword:00000001
 
+; ============================================
+; 禁用覆盖实时保护设置
 ; disable overwriting real time protection settings
+; ============================================
 
+; 这些设置防止用户或应用程序通过本地设置覆盖组策略的禁用状态
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection]
+; 禁用本地设置覆盖 - 按需访问保护（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideDisableOnAccessProtection"=dword:00000000
+; 禁用本地设置覆盖 - 实时扫描方向（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideRealtimeScanDirection"=dword:00000000
+; 禁用本地设置覆盖 - IOAV 保护（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideDisableIOAVProtection"=dword:00000000
+; 禁用本地设置覆盖 - 行为监控（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideDisableBehaviorMonitoring"=dword:00000000
+; 禁用本地设置覆盖 - 入侵防御系统（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideDisableIntrusionPreventionSystem"=dword:00000000
+; 禁用本地设置覆盖 - 实时监控（设置为 0 = 不允许覆盖）
 "LocalSettingOverrideDisableRealtimeMonitoring"=dword:00000000
+
+; 禁用 IOAV（Internet Open Application Verification）保护
+; 此功能用于扫描从互联网下载的文件和应用程序
 "DisableIOAVProtection"=dword:00000001
+
+; 禁用实时监控（核心防病毒功能）
+; 设置为 1 = 完全禁用实时文件监控和威胁检测
 "DisableRealtimeMonitoring"=dword:00000001
+
+; 禁用行为监控（启发式检测）
+; 设置为 1 = 禁用基于行为的恶意软件检测
 "DisableBehaviorMonitoring"=dword:00000001
+
+; 禁用按需访问保护
+; 设置为 1 = 禁用文件访问时的即时扫描
 "DisableOnAccessProtection"=dword:00000001
+
+; 禁用实时启用时的扫描
+; 设置为 1 = 当实时监控启用时不执行扫描
 "DisableScanOnRealtimeEnable"=dword:00000001
+
+; 设置实时扫描方向为 2（仅扫描传入文件）
+; 0 = 双向，1 = 仅传出，2 = 仅传入
 "RealtimeScanDirection"=dword:00000002
+
+; 禁用信息保护控制
+; 设置为 1 = 禁用数据丢失防护和信息权限管理集成
 "DisableInformationProtectionControl"=dword:00000001
+
+; 禁用入侵防御系统（IPS）
+; 设置为 1 = 禁用网络层面的入侵检测和阻止
 "DisableIntrusionPreventionSystem"=dword:00000001
+
+; 禁用原始写入通知
+; 设置为 1 = 禁用对磁盘原始写入操作的监控和通知
 "DisableRawWriteNotification"=dword:00000001
 
+; ============================================
+; 策略管理器 - 行为监控配置
+; ============================================
+
+; 禁用行为监控（通过策略管理器再次确认禁用）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Defender\AllowBehaviorMonitoring]
 "value"=dword:00000000
 
+; ============================================
+; WOW6432Node（32 位兼容层）策略配置
+; ============================================
+
+; 在 32 位兼容层中禁用常规自动操作
 [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows Defender]
 "DisableRoutinelyTakingAction"=dword:00000001
 
+; ============================================
+; Spynet（微软间谍软件报告网络）配置
+; ============================================
+
+; 禁用向 Microsoft 发送威胁数据和样本
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet]
+; 禁用首次看到时阻止（云保护功能）
+; 设置为 1 = 即使云端识别为威胁也不阻止
 "DisableBlockAtFirstSeen"=dword:00000001
+; 禁用本地设置覆盖 - Spynet 报告
+; 设置为 0 = 不允许用户更改报告设置
 "LocalSettingOverrideSpynetReporting"=dword:00000000
+; 禁用 Spynet 报告
+; 设置为 0 = 不向 Microsoft 发送任何威胁遥测数据
 "SpynetReporting"=dword:00000000
+; 设置样本提交同意为 2（从不发送）
+; 0 = 始终询问，1 = 自动发送，2 = 从不发送
 "SubmitSamplesConsent"=dword:00000002
 
+; ============================================
+; Microsoft Antimalware SpyNet 配置
+; ============================================
+
+; 在旧版反恶意软件策略中同样禁用 SpyNet 报告
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Microsoft Antimalware\SpyNet]
+; 禁用 SpyNet 报告
 "SpyNetReporting"=dword:00000000
+; 禁用本地设置覆盖 - SpyNet 报告
 "LocalSettingOverrideSpyNetReporting"=dword:00000000
 
+; ============================================
+; 移除工具 MpGears 配置
+; ============================================
+
+; 配置恶意软件移除工具的跟踪和报告行为
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\RemovalTools\MpGears]
+; 设置心跳跟踪索引为 0（禁用定期状态报告）
 "HeartbeatTrackingIndex"=dword:00000000
+; 设置 SpyNet 报告位置为 "0"（禁用报告服务器地址）
 "SpyNetReportingLocation"="0"

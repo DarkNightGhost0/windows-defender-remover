@@ -1,4 +1,9 @@
 Windows Registry Editor Version 5.00
 
+; 隐藏 Windows 设置中的 Windows Defender 页面
+; 通过设置资源管理器策略来隐藏特定的设置页面
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+; SettingsPageVisibility 键值用于控制设置应用中页面的可见性
+; "hide:windowsdefender;" 表示隐藏 Windows Defender 相关的设置页面
 "SettingsPageVisibility"="hide:windowsdefender;"

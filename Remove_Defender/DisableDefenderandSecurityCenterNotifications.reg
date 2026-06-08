@@ -1,28 +1,56 @@
 Windows Registry Editor Version 5.00
 
+; 禁用 Windows Defender 安全中心通知
 ; Disable Windows Defender Security Center Notifications
 
+; ============================================
+; 策略管理器 - Windows Defender 安全中心通知配置
+; ============================================
+
+; 禁用增强通知（设置为 1 = 禁用详细的安全通知）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WindowsDefenderSecurityCenter\DisableEnhancedNotifications]
 "value"=dword:00000001
 
+; 禁用所有通知（设置为 1 = 完全禁用 Windows Defender 安全中心的所有通知）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WindowsDefenderSecurityCenter\DisableNotifications]
 "value"=dword:00000001
 
+; 隐藏 Windows 安全通知区域控件（设置为 1 = 隐藏任务栏中的安全中心图标）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\WindowsDefenderSecurityCenter\HideWindowsSecurityNotificationAreaControl]
 "value"=dword:00000001
 
+; ============================================
+; 禁用 Windows 安全中心通知
 ; Disable Windows Security Center Notifications
+; ============================================
 
+; 删除安全中心的完整配置项（清除所有现有设置）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Security Center]
 
+; 重新创建安全中心配置并设置禁用选项
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Security Center]
+; 禁用首次运行向导（设置为 1 = 不显示首次运行界面）
 "FirstRunDisabled"=dword:00000001
+; 防病毒覆盖（设置为 1 = 忽略防病毒状态，不发出警告）
 "AntiVirusOverride"=dword:00000001
+; 防火墙覆盖（设置为 1 = 忽略防火墙状态，不发出警告）
 "FirewallOverride"=dword:00000001
 
+; ============================================
+; Windows Defender 安全中心通知策略配置
+; ============================================
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications]
+; 禁用增强通知（通过组策略强制禁用）
 "DisableEnhancedNotifications"=dword:00000001
+; 禁用所有通知（通过组策略强制禁用所有安全通知）
 "DisableNotifications"=dword:00000001
 
+; ============================================
+; 当前用户通知设置 - 安全和维护 toast 通知
+; ============================================
+
+; 禁用 Windows 系统 toast 通知中的安全和维护通知
+; 这将阻止在屏幕右下角弹出的安全相关通知气泡
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
 "Enabled"=dword:00000000

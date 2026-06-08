@@ -1,46 +1,87 @@
 Windows Registry Editor Version 5.00
 
+; 禁用 Microsoft Edge 的 SmartScreen 功能
 ; Disable SmartScreen for Microsoft Edge
 
+; ============================================
+; Microsoft Edge 浏览器 SmartScreen 配置
+; ============================================
+
+; 配置 Edge 浏览器的网络钓鱼过滤器（在 AppContainer 存储中）
 [HKEY_CURRENT_USER\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter]
+; 禁用 SmartScreen 网络钓鱼保护（设置为 0 = 禁用）
 "EnabledV9"=dword:00000000
+; 允许用户覆盖 SmartScreen 警告（设置为 0 = 允许用户忽略警告继续访问）
 "PreventOverride"=dword:00000000
 
+; 禁用新版 Microsoft Edge 的 SmartScreen
 [HKEY_CURRENT_USER\Software\Microsoft\Edge]
+; 禁用 SmartScreen 功能（设置为 0 = 禁用）
 "SmartScreenEnabled"=dword:00000000
 
+; 再次确认禁用 Edge SmartScreen（默认值设置）
 [HKEY_CURRENT_USER\Software\Microsoft\Edge\SmartScreenEnabled]
 @=dword:00000000
 
+; ============================================
+; 禁用文件资源管理器和 Windows Shell 中的 SmartScreen
 ; Disable SmartScreen in File Explorer and Windows Shell
+; ============================================
 
+; 在 Windows 资源管理器中禁用 SmartScreen
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
+; 将 SmartScreen 设置为关闭状态
 "SmartScreenEnabled"="off"
 
+; 通过组策略禁用系统级 SmartScreen
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+; 禁用 SmartScreen 功能（设置为 0 = 禁用）
 "EnableSmartScreen"=dword:00000000
+; 删除 Shell SmartScreen 级别设置（移除任何现有的限制级别）
 "ShellSmartScreenLevel"=-
 
+; ============================================
+; 策略管理器 - SmartScreen 配置
+; ============================================
+
+; 禁用浏览器中的 SmartScreen
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Browser\AllowSmartScreen]
 "value"=dword:00000000
 
+; 禁用 Shell（资源管理器）中的 SmartScreen
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\SmartScreen\EnableSmartScreenInShell]
 "value"=dword:00000000
 
+; 禁用应用程序安装控制（应用商店验证）
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\SmartScreen\EnableAppInstallControl]
 "value"=dword:00000000
 
+; 允许用户覆盖 Shell 中文件的 SmartScreen 警告
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\SmartScreen\PreventOverrideForFilesInShell]
 "value"=dword:00000000
 
+; ============================================
+; 禁用 Microsoft Store 应用的 SmartScreen
 ; Disable SmartScreen for Microsoft Store Apps
+; ============================================
 
+; 配置应用主机的 Web 内容评估
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\AppHost]
+; 禁用 Web 内容评估（SmartScreen 的核心功能）
+; 设置为 0 = 不评估从互联网下载的内容是否安全
 "EnableWebContentEvaluation"=dword:00000000
+; 允许用户覆盖 SmartScreen 警告
 "PreventOverride"=dword:00000000
 
+; ============================================
+; 配置应用程序安装控制
 ; Configure App Install Control
+; ============================================
 
+; 配置 Windows Defender SmartScreen 的应用安装控制策略
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen]
+; 启用应用程序安装控制配置（设置为 1 = 启用此策略设置）
 "ConfigureAppInstallControlEnabled"=dword:00000001
+; 设置应用程序安装来源为"任何位置"
+; "Anywhere" = 允许从任何位置安装应用程序，不受 SmartScreen 限制
 "ConfigureAppInstallControl"="Anywhere"

@@ -1,37 +1,111 @@
 Windows Registry Editor Version 5.00
 
+; ============================================
+; Windows 缓解措施配置
+; ============================================
+
+; 设置用户偏好为禁用所有缓解措施
+; 值说明：0 = 使用默认设置，1 = 启用，2 = 禁用
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsMitigation]
 "UserPreference"=dword:00000002
 
+; ============================================
+; 内核级缓解措施
 ; In-kernel Mitigations
+; ============================================
 
+; 配置内核会话管理器的缓解措施选项
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
+; 缓解措施审计选项（十六进制值）
+; 控制哪些缓解措施被审计和记录
 "MitigationAuditOptions"=hex:00,00,00,00,00,00,20,22,00,00,00,00,00,00,00,20,00,00,00,00,00,00,00,00
+
+; 缓解措施选项（十六进制值）
+; 控制实际启用的内核级安全缓解措施
+; 这些值禁用了多种内核保护机制以提升性能
 "MitigationOptions"=hex:00,22,22,20,22,20,22,22,20,00,00,00,00,20,00,20,00,00,00,00,00,00,00,00
+
+; 禁用内核 SEHOP（结构化异常处理覆盖保护）
+; SEHOP 用于防止攻击者利用异常处理漏洞
+; 设置为 0 = 禁用此保护（可提升旧系统性能）
 "KernelSEHOPEnabled"=dword:00000000
 
+; ============================================
+; 服务缓解措施
 ; Services Mitigations
+; ============================================
 
+; 配置服务控制管理器（SCM）的缓解措施策略
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SCMConfig]
+; 禁用 Svchost 缓解措施策略
+; Svchost 是 Windows 服务宿主进程，此设置禁用对其的安全限制
+; 设置为全 0 = 禁用所有 Svchost 缓解措施
 "EnableSvchostMitigationPolicy"=hex(b):00,00,00,00,00,00,00,00
 
+; ============================================
+; 移除 Defender 的篡改保护
 ; Remove Defender's Tamper Protection
+; ============================================
 
+; 配置 Windows Defender 功能标志
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Features]
+; 禁用来自引擎的平台杀死位（Killbits）
+; Killbits 用于阻止已知恶意组件运行
 "MpPlatformKillbitsFromEngine"=hex:00,00,00,00,00,00,00,00
+
+; 设置篡改保护源为 0（无源/禁用）
+; 控制谁可以管理篡改保护设置
 "TamperProtectionSource"=dword:00000000
+
+; 禁用 Defender 功能标志
+; MpCapability 控制 Defender 的各种能力
 "MpCapability"=hex:00,00,00,00,00,00,00,00
+
+; 禁用篡改保护（Tamper Protection）
+; 篡改保护防止恶意软件禁用或修改 Defender 设置
+; 设置为 0 = 完全禁用篡改保护
 "TamperProtection"=dword:00000000
 
+; ============================================
+; 系统级保护配置
+; ============================================
 
+; 配置系统策略中的 PPL（受保护进程轻量级）设置
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System]
+; 禁用以受保护进程模式运行（RunAsPPL）
+; PPL 用于保护关键安全进程不被终止或注入
+; 设置为 0 = 禁用 PPL 保护
 "RunAsPPL"=dword:00000000
 
+; ============================================
+; LSA（本地安全机构）配置
+; ============================================
+
+; 配置本地安全机构的保护选项
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa]
+; 设置 LSA 配置标志为 0（禁用所有额外保护）
 "LsaConfigFlags"=dword:00000000
+
+; 禁用 LSA 以受保护进程模式运行
+; LSA 负责处理身份验证和安全策略
 "RunAsPPL"=dword:00000000
+
+; 禁用启动时的 PPL 保护
+; 这会影响系统启动早期的安全进程保护
 "RunAsPPLBoot"=dword:00000000
+
+; 删除 LM 兼容性级别设置
+; LM（LAN Manager）兼容性级别控制网络认证协议
+; 删除此值将使用系统默认设置
 "LmCompatibilityLevel"=-
 
+; ============================================
+; 代码完整性配置
+; ============================================
+
+; 配置代码完整性（CI）策略
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Config]
+; 禁用易受攻击驱动程序阻止列表
+; 此列表阻止已知存在安全漏洞的驱动程序加载
+; 设置为 0 = 禁用阻止列表，允许加载任何驱动程序
 "VulnerableDriverBlocklistEnable"=dword:00000000

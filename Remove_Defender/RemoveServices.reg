@@ -1,44 +1,82 @@
 Windows Registry Editor Version 5.00
 
+; 移除 Windows Defender 和 Windows 安全服务
 ; Remove Defender and Windows Security Services
 
+; 删除 Microsoft 安全核心服务（MsSecCore）
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MsSecCore]
 
+; 删除 Windows 安全中心服务（wscsvc - Windows Security Center Service）
+; 此服务负责监控和报告系统安全状态
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wscsvc]
 
+; 删除 Windows Defender 网络检查系统驱动程序（WdNisDrv）
+; 用于检测网络入侵的驱动层组件
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdNisDrv]
 
+; 删除 Windows Defender 网络检查系统服务（WdNisSvc）
+; 提供实时网络威胁保护的服务
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdNisSvc]
 
+; 删除 Windows Defender 文件系统过滤驱动程序（WdFilter）
+; 在文件系统层面进行实时扫描和保护
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdFilter]
 
+; 删除 Windows Defender 启动驱动程序（WdBoot）
+; 在系统启动早期加载的反恶意软件驱动
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdBoot]
 
+; 删除系统.guard 运行时代理（SgrmAgent）
+; 负责系统完整性验证的代理组件
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SgrmAgent]
 
+; 删除系统.guard 运行时代理程序（SgrmBroker）
+; 管理系统.guard 功能的代理服务
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SgrmBroker]
 
+; 删除 Windows Defender 主服务（WinDefend）
+; Windows Defender 防病毒的核心服务
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinDefend]
 
+; 配置应用和浏览器保护策略
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App and Browser protection]
+; 禁止覆盖漏洞利用保护设置（设置为 1 = 禁止用户修改）
 "DisallowExploitProtectionOverride"=dword:00000001
 
+; 删除 Microsoft 安全过滤器服务（MsSecFlt）
+; 提供额外的安全防护过滤功能
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MsSecFlt]
 
+; 删除 Microsoft 安全 Windows 过滤平台服务（MsSecWfp）
+; 基于 WFP 的网络流量过滤和安全检查
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MsSecWfp]
 
+; 删除 Windows 健康事件服务（whesvc - Windows Health Event Service）
+; 负责收集和报告系统健康事件
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\whesvc]
 
+; 删除网络威胁防御服务的 Windows Runtime 服务器配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\Server\WebThreatDefSvc]
 
+; 删除网络威胁防御主服务（webthreatdefsvc）
+; 提供网络威胁检测和防护功能
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\webthreatdefsvc]
 
+; 删除网络威胁防御用户服务（webthreatdefusersvc）
+; 为每个用户提供独立的网络威胁防护
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc]
 
+; 删除网络威胁防御的 Svchost 服务组配置
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost\WebThreatDefense]
 
+; 删除 Pluton 安全处理器服务（PlutonHsp2）
+; Microsoft Pluton 安全芯片的第二代主机安全处理器
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PlutonHsp2]
 
+; 删除 Pluton HECI 服务（PlutonHeci）
+; Pluton 安全处理器的主机嵌入式控制器接口
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PlutonHeci]
 
+; 删除主机安全处理器服务（Hsp - Host Security Processor）
+; 提供硬件级别的安全保护功能
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Hsp]

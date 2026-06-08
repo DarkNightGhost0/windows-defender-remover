@@ -1,14 +1,32 @@
 Windows Registry Editor Version 5.00
 
+; 此文件用于禁用 Windows Defender 的病毒定义签名更新
 ; this file disables Signature Updates in Windows Defender
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates]
+; 启用签名禁用通知（设置为 1 = 启用通知，告知用户签名已被禁用）
 "SignatureDisableNotification"=dword:00000001
+
+; 禁用实时签名交付（设置为 0 = 禁用，阻止通过 Microsoft Update 实时推送新的病毒定义）
 "RealtimeSignatureDelivery"=dword:00000000
+
+; 禁用从 Microsoft Update 强制更新（设置为 0 = 禁用，不强制从 MU 获取更新）
 "ForceUpdateFromMU"=dword:00000000
+
+; 禁用在电池模式下进行计划的签名更新（设置为 1 = 禁用，节省笔记本电池电量）
 "DisableScheduledSignatureUpdateOnBattery"=dword:00000001
+
+; 禁用启动时更新（设置为 0 = 禁用，系统启动时不检查或下载签名更新）
 "UpdateOnStartUp"=dword:00000000
+
+; 设置签名更新追赶间隔为 2 天（值为 2，表示如果错过更新，最多追赶 2 天内的更新）
 "SignatureUpdateCatchupInterval"=dword:00000002
+
+; 禁用在没有引擎的情况下启动时更新（设置为 1 = 禁用，如果防病毒引擎未加载则不更新）
 "DisableUpdateOnStartupWithoutEngine"=dword:00000001
+
+; 设置计划更新时间为 1440 分钟（24 小时），但由于其他设置已禁用更新，此值实际无效
 "ScheduleTime"=dword:00001440
+
+; 禁用更新时的扫描（设置为 1 = 禁用，在下载签名更新后不自动执行扫描）
 "DisableScanOnUpdate"=dword:00000001

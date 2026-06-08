@@ -1,33 +1,48 @@
 ﻿Windows Registry Editor Version 5.00
 
+; 移除安全健康服务应用的数据并终止该应用
 ; removes data and kills Security Health Service App
 
+; 删除本地计算机上的 Windows 安全健康配置数据
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Security Health]
 
+; 删除当前用户下的 Windows 安全健康配置数据
 [-HKEY_CURRENT_USER\Software\Microsoft\Windows Security Health]
 
+; 设置当前用户的 Windows 安全健康状态为禁用
 [HKEY_CURRENT_USER\Software\Microsoft\Windows Security Health\State]
 "Disabled"=dword:00000001
 
+; 将本地计算机的 Windows 安全健康平台注册状态设置为未注册
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Security Health\Platform]
 "Registered"=dword:00000000
 
+; 从操作中心移除安全中心
 ; removal of Security Center from Action Center
 
+; 删除 64 位系统的安全中心 CLSID 注册项（当前用户类）
 [-HKEY_CLASSES_ROOT\CLSID\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 删除 32 位兼容层的安全中心 CLSID 注册项（当前用户类）
 [-HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 删除 64 位系统的安全中心 CLSID 注册项（本地机器类）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 删除 32 位兼容层的安全中心 CLSID 注册项（本地机器类）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\WOW6432Node\CLSID\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 从控制面板命名空间中移除安全中心入口（64 位）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 删除 32 位兼容层的安全中心 CLSID 注册项（WOW6432Node 类）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Classes\CLSID\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 从控制面板命名空间中移除安全中心入口（32 位兼容层）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}]
 
+; 移除 Windows 安全健康服务
 ; Remove Windows Security Health Service
 
+; 删除安全健康服务的系统服务注册项，这将阻止服务启动
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SecurityHealthService]

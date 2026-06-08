@@ -1,15 +1,26 @@
 Windows Registry Editor Version 5.00
 
+; 移除 Windows Defender 的开机启动项
 ; Remove Defender's Startup Entries
 
+; 从当前用户的开机启动项中移除 Windows Defender 和安全健康相关条目
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+; 删除 Windows Defender 开机启动项
 "Windows Defender"=-
+; 删除安全健康服务开机启动项
 "SecurityHealth"=-
 
+; 从本地计算机的启动批准列表中移除 Windows Defender 和安全健康相关条目
+; 此位置控制哪些启动项被系统批准运行
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run]
+; 删除已批准的 Windows Defender 启动项记录
 "Windows Defender"=-
+; 删除已批准的安全健康服务启动项记录
 "SecurityHealth"=-
 
+; 从本地计算机的全局开机启动项中移除 Windows Defender 和安全健康相关条目
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+; 删除 WindowsDefender 开机启动项（注意此处无空格）
 "WindowsDefender"=-
+; 删除安全健康服务开机启动项
 "SecurityHealth"=-

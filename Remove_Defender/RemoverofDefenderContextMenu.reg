@@ -1,15 +1,23 @@
 Windows Registry Editor Version 5.00
 
+; 删除 Windows Defender 的 Shell 服务对象（32 位兼容层）
+; 此 CLSID 用于在资源管理器中集成 Defender 功能
 [-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{900c0763-5cad-4a34-bc1f-40cd513679d5}]
 
+; 删除 Windows Defender 的 Shell 服务对象（64 位）
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{900c0763-5cad-4a34-bc1f-40cd513679d5}]
 
+; 移除"使用 Defender 扫描"右键上下文菜单
 ; Remove "Scan with Defender" Context Menu
 
+; 删除 Windows Defender 的主配置注册项
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender]
 
+; 删除文件夹右键菜单中的"使用 Windows Defender 扫描"选项
 [-HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender]
 
+; 删除桌面背景右键菜单中的"Windows 安全"选项
 [-HKEY_CLASSES_ROOT\DesktopBackground\Shell\WindowsSecurity]
 
+; 删除文件夹右键菜单中"使用 Windows Defender 扫描"的命令执行项
 [-HKEY_CLASSES_ROOT\Folder\shell\WindowsDefender\Command]
